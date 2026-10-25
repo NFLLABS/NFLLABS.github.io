@@ -1,0 +1,40 @@
+name: Mise à jour des données
+
+on:
+  schedule:
+    # Jours de match (jeudi, dimanche, lundi) : aux 30 minutes, heure UTC
+    - cron: "*/30 * * * 0,1,4"
+    # Fin de soirée des matchs du jeudi et du lundi (déjà vendredi / mardi en UTC)
+    - cron: "*/30 0-5 * * 2,5"
+    # Les autres jours : 2 fois (7 h et 18 h, heure de l'Est)
+    - cron: "0 11,22 * * 2,3,5,6"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: maj
+  cancel-in-progress: false
+
+jobs:
+  maj:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Données (scores, cotes, stats, propositions, fantasy)
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python -I -X utf8 scripts/run_all.py
+      - name: Publier
+        run: |
+          git config user.name "NFL LABS robot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data state
+          if git diff --cached --quiet; then echo "Rien de neuf"; exit 0; fi
+          git commit -q -m "Données $(date -u +%Y-%m-%dT%H:%MZ)"
+          git pull -q --rebase && git push -q

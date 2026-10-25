@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NFL LABS</title>
+<meta name="description" content="Pointages NFL en direct, propositions de paris et ligue fantasy QFF, mis à jour tout seuls.">
+<meta name="theme-color" content="#08111f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308111f'/%3E%3Cellipse cx='32' cy='32' rx='22' ry='13' fill='%23ffb81c' transform='rotate(-35 32 32)'/%3E%3Cpath d='M24 40l16-16M27 31l6 6M31 27l6 6' stroke='%2308111f' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <section class="scores" aria-labelledby="scores-h">
+    <div class="scores-top">
+      <span class="lbl" id="scores-h">Pointages NFL</span>
+      <span class="scores-at" id="scores-at"></span>
+    </div>
+    <div class="strip" id="strip"><p class="empty-line">Les pointages se chargent…</p></div>
+  </section>
+
+  <header class="board">
+    <div class="board-top">
+      <div>
+        <span class="lbl">Saison 2026 · Labo de paris</span>
+        <h1>NFL <span>LABS</span></h1>
+        <p class="sub">Pointages en direct, propositions de paris et ligue fantasy QFF. Tout se met à jour tout seul.</p>
+      </div>
+      <span class="live" id="live" data-state="wait"><span class="dot"></span><span id="live-text">Chargement…</span></span>
+    </div>
+    <div class="field" aria-hidden="true"><b>10</b><b>20</b><b>30</b><b>40</b><b>50</b><b>40</b><b>30</b><b>20</b><b>10</b><b></b></div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button class="tab" role="tab" id="tab-paris" aria-controls="paris" data-tab="paris">Paris</button>
+    <button class="tab" role="tab" id="tab-fantasy" aria-controls="fantasy" data-tab="fantasy">Fantasy</button>
+  </nav>
+
+  <!-- PARIS -->
+  <section id="paris" role="tabpanel" aria-labelledby="tab-paris" class="panel">
+    <div class="chips" role="group" aria-label="Section des paris" id="p-chips">
+      <button class="chip" data-sub="bet365">bet365</button>
+      <button class="chip" data-sub="moj">Mise-O-Jeu</button>
+      <button class="chip" data-sub="matchs">Matchs et cotes</button>
+      <button class="chip" data-sub="blesses">Blessés</button>
+      <button class="chip" data-sub="joueurs">Joueurs</button>
+    </div>
+    <div id="p-body"></div>
+    <p class="note fine" id="p-methode"></p>
+  </section>
+
+  <!-- FANTASY -->
+  <section id="fantasy" role="tabpanel" aria-labelledby="tab-fantasy" class="panel" hidden>
+    <div class="chips" role="group" aria-label="Section fantasy" id="f-chips">
+      <button class="chip" data-sub="matchs">Matchs de la semaine</button>
+      <button class="chip" data-sub="classement">Classement</button>
+      <button class="chip" data-sub="equipes">Équipes</button>
+      <button class="chip" data-sub="agents">Agents libres</button>
+    </div>
+    <div id="f-body"></div>
+  </section>
+
+  <section aria-labelledby="books-h" class="books-wrap">
+    <span class="lbl" id="books-h">Livres de paris et liens</span>
+    <div class="books">
+      <a class="book" href="https://www.bet365.com" target="_blank" rel="noopener"><b>bet365</b><small>Placer ses paris</small><span class="go">Ouvrir →</span></a>
+      <a class="book" href="https://miseojeu.lotoquebec.com/fr/offre-de-paris/football/nfl/matchs?idAct=1899" target="_blank" rel="noopener"><b>Mise-O-Jeu</b><small>Matchs NFL</small><span class="go">Ouvrir →</span></a>
+      <a class="book" href="https://www.espn.com/nfl/scoreboard" target="_blank" rel="noopener"><b>ESPN</b><small>Pointages</small><span class="go">Ouvrir →</span></a>
+      <a class="book" href="https://www49.myfantasyleague.com/2026/home/49625" target="_blank" rel="noopener"><b>MFL · QFF</b><small>La ligue fantasy</small><span class="go">Ouvrir →</span></a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p id="maj"></p>
+    <p>Sources : ESPN (pointages, cotes DraftKings, blessures), nflverse (stats), Loto-Québec (Mise-O-Jeu), MyFantasyLeague (ligue QFF). Les propositions sont calculées par des règles, pas par une personne : c'est pour le plaisir, pas un conseil financier. Joue de façon responsable, 18+.</p>
+  </footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
