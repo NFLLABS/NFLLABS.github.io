@@ -103,6 +103,7 @@ h1 span { color: var(--lights); }
 .price b { font: 800 1.35rem/1 var(--f-display); font-variant-numeric: tabular-nums; }
 .price small { font: 700 10px var(--f-cond); text-transform: uppercase; letter-spacing: .1em; }
 .price.est { background: transparent; color: var(--lights); border: 1.5px dashed var(--lights); }
+.t-when { font-size: 13px; font-weight: 600; color: var(--muted); }
 .t-pick { font: 700 17px var(--f-cond); letter-spacing: .02em; }
 .t-why { font-size: 14px; color: var(--muted); margin: 0; }
 .t-stub { margin: auto -16px 0; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; border-top: 2px dashed var(--line); background: color-mix(in srgb, var(--panel-2) 70%, var(--panel)); border-radius: 0 0 12px 12px; position: relative; font: 600 13px var(--f-cond); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
@@ -127,6 +128,7 @@ h1 span { color: var(--lights); }
 .combo h4 { margin: 0; font: 800 1.35rem/1 var(--f-display); text-transform: uppercase; color: var(--lights); }
 .combo ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 3px; font-size: 14px; }
 .combo ol small { color: var(--muted); }
+.combo ol .leg-when { display: block; font-size: 12px; }
 .combo .nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; border-top: 1px solid var(--line); padding-top: 8px; }
 .combo .nums div { display: flex; flex-direction: column; }
 .combo .nums small { font: 600 11px var(--f-cond); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }

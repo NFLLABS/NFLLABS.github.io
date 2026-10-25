@@ -168,6 +168,15 @@
     if (p.mkey === "td") return [p.sens === "Oui" ? (v) => v >= 1 : (v) => v === 0, 1];
     return [p.sens === "Plus" ? (v) => v > p.ligne : (v) => v < p.ligne, p.ligne];
   }
+  // Jour et heure du match d'un pari (« DAL @ PHI » → coup d'envoi), ou son état s'il est commencé
+  function quand(match) {
+    const g = (paris?.games || []).find((x) => x.away + " @ " + x.home === match);
+    if (!g) return "";
+    if (g.status === "STATUS_FINAL") return "Match terminé";
+    if (g.status && g.status !== "STATUS_SCHEDULED") return "Match en cours";
+    const d = new Date(g.kickoff);
+    return isNaN(d) ? "" : d.toLocaleString("fr-CA", { weekday: "long", day: "numeric", month: "long", hour: "numeric", minute: "2-digit" });
+  }
   function ticket(p) {
     const t = el("article", "ticket");
     const top = el("div", "t-top");
@@ -176,7 +185,10 @@
     const price = el("div", "price" + (p.coteEstimee ? " est" : ""));
     price.append(el("b", null, (p.coteEstimee ? "≈ " : "") + cote(p.cote)), el("small", null, p.coteEstimee ? "Cote estimée" : "Cote"));
     top.append(who, price);
-    t.append(top, el("div", "t-pick", p.choix));
+    t.append(top);
+    const q = quand(p.match);
+    if (q) t.append(el("div", "t-when", "🕐 " + q));
+    t.append(el("div", "t-pick", p.choix));
     const [isHit, line] = hitFn(p);
     t.append(spark(p.hist || [], isHit, line));
     const hits = (p.hist || []).filter(isHit).length;
@@ -198,7 +210,7 @@
       const d = el("article", "combo");
       d.append(el("h4", null, c.nom), el("p", "note", c.note));
       const ol = el("ol");
-      for (const l of legs) { const li = el("li", null, l.joueur + " : " + l.choix + " "); li.append(el("small", null, "(" + (l.coteEstimee ? "≈ " : "") + cote(l.cote) + ")")); ol.append(li); }
+      for (const l of legs) { const li = el("li", null, l.joueur + " : " + l.choix + " "); li.append(el("small", null, "(" + (l.coteEstimee ? "≈ " : "") + cote(l.cote) + ")")); const q = quand(l.match); if (q) li.append(el("small", "leg-when", l.match + " · " + q)); ol.append(li); }
       d.append(ol);
       const nums = el("div", "nums");
       for (const [k, v] of [["Mise", c.mise + " $"], ["Cote", (legs.some((l) => l.coteEstimee) ? "≈ " : "") + cote(c.cote)], ["Gain", virg(c.gain, 2) + " $"]]) {
