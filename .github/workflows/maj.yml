@@ -2,12 +2,15 @@ name: Mise à jour des données
 
 on:
   schedule:
-    # Jours de match (jeudi, dimanche, lundi) : aux 30 minutes, heure UTC
-    - cron: "*/30 * * * 0,1,4"
-    # Fin de soirée des matchs du jeudi et du lundi (déjà vendredi / mardi en UTC)
-    - cron: "*/30 0-5 * * 2,5"
+    # Heures UTC. Pendant les matchs : aux 10 minutes (décalé de 3 min, GitHub est moins chargé hors de l'heure pile)
+    - cron: "3-59/10 16-23 * * 0"     # dimanche après-midi et soir
+    - cron: "3-59/10 22-23 * * 1,4"   # lundi et jeudi, début de soirée
+    - cron: "3-59/10 0-5 * * 1,2,5"   # fin des matchs du dimanche, lundi et jeudi soir
+    # Le reste des jours de match : aux 30 minutes
+    - cron: "3-59/30 0-15 * * 0"
+    - cron: "3-59/30 6-21 * * 1,4"
     # Les autres jours : 2 fois (7 h et 18 h, heure de l'Est)
-    - cron: "0 11,22 * * 2,3,5,6"
+    - cron: "3 11,22 * * 2,3,5,6"
   workflow_dispatch:
 
 permissions:
